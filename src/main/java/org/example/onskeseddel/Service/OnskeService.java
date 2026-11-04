@@ -11,12 +11,12 @@ import java.util.ArrayList;
 public class OnskeService {
     public final OnskeRepository onskeRepository;
 
-    OnskeService(OnskeRepository onskeRepository){
+    public OnskeService(OnskeRepository onskeRepository) {
         this.onskeRepository = onskeRepository;
     }
-    ArrayList<OnskeModel> onsker = new ArrayList<>();
 
-    public String getOpretOnske(){
-        return onskeRepository.getOpretOnske();
-    }
+    public void  OpretOnske(OnskeModel onske) {
+        onskeRepository.opretOnske(onske);  }
+
+
 }
