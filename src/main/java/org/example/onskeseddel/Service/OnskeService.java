@@ -16,7 +16,5 @@ public class OnskeService {
     }
     ArrayList<OnskeModel> onsker = new ArrayList<>();
 
-    public String getOpretOnske(){
-        return onskeRepository.getOpretOnske();
     }
-}
+

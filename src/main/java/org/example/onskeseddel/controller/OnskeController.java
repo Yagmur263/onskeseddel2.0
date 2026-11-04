@@ -32,7 +32,7 @@ public class OnskeController {
 
     @PostMapping("/oprettelse")
     public String gemOnske(@ModelAttribute OnskeModel onskemodel) {
-        onskeService.(navn fra service der tilføjer et ønske)
+        return "redirect/";
     }
 
 }
