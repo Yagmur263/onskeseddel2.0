@@ -18,7 +18,7 @@ public class OnskeController {
         this.onskeService = onskeService;
     }
 
-    @RequestMapping("/ØnskeSeddel")
+    @RequestMapping("ØnskeSeddel")
     public String visonske() {
         return "/ØnskeSeddel";
     }
@@ -29,11 +29,15 @@ public class OnskeController {
         model.addAttribute("OpretOnske", onske);
         return "/oprettelse";
     }
+   @PostMapping ("/oprettelse")
+    public String gemOnske(@ModelAttribute OnskeModel onskeModel){
+          onskeService.OpretOnske(onskeModel);
+        return "/oprettelse";
+   }
 
-    @PostMapping("/oprettelse")
-    public String gemOnske(@ModelAttribute OnskeModel onskemodel) {
-        onskeService.(navn fra service der tilføjer et ønske)
-    }
+   
+
+
 
 }
 
