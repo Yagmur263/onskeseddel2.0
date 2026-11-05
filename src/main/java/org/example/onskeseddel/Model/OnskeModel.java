@@ -3,17 +3,17 @@ package org.example.onskeseddel.Model;
 public class OnskeModel {
 
     private int id;
-    private int wishlistId;
+    private int onskelistId;
     private String navn;
     private String beskrivelse;
     private String link;
     private double pris;
-    private int antal;
+    private int antal = 1;
     private boolean købt;
 
-public onske() {
+public OnskeModel() {
         this.id = id;
-        this.wishlistId = wishlistId;
+        this.onskelistId = onskelistId;
         this.navn = navn;
         this.beskrivelse = beskrivelse;
         this.link = link;
@@ -30,10 +30,10 @@ public onske() {
 
     }
     public int getWishlistId() {
-        return wishlistId;
+        return onskelistId;
     }
-    public void setWishlistId(int WishlistId){
-        this.wishlistId = wishlistId;
+    public void setOnskelistId(int onskelistId){
+        this.onskelistId = onskelistId;
 
     }
     public String getNavn() {
