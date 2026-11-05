@@ -3,82 +3,78 @@ package org.example.onskeseddel.Model;
 public class OnskeModel {
 
     private int id;
-    private int onskelistId;
+    private int onskelisteId;
     private String navn;
     private String beskrivelse;
     private String link;
     private double pris;
     private int antal = 1;
-    private boolean købt;
+    private boolean koebt;
 
-public OnskeModel() {
-        this.id = id;
-        this.onskelistId = onskelistId;
-        this.navn = navn;
-        this.beskrivelse = beskrivelse;
-        this.link = link;
-        this.pris = pris;
-        this.antal = antal;
-        this.købt = købt;
+    public OnskeModel() {
     }
 
     public int getId() {
         return id;
     }
-    public void setId(int id){
-    this.id = id;
 
+    public void setId(int id) {
+        this.id = id;
     }
-    public int getWishlistId() {
-        return onskelistId;
-    }
-    public void setOnskelistId(int onskelistId){
-        this.onskelistId = onskelistId;
 
+    public int getOnskelisteId() {
+        return onskelisteId;
     }
+
+    public void setOnskelisteId(int onskelisteId) {
+        this.onskelisteId = onskelisteId;
+    }
+
     public String getNavn() {
         return navn;
     }
+
     public void setNavn(String navn) {
         this.navn = navn;
     }
 
-    public String getBeskrivelse(){
-    return beskrivelse;
+    public String getBeskrivelse() {
+        return beskrivelse;
     }
-    public void setBeskrivelse(String beskrivelse){
-    this.beskrivelse = beskrivelse;
 
+    public void setBeskrivelse(String beskrivelse) {
+        this.beskrivelse = beskrivelse;
     }
-    public String getlink(){
-    return link;
-    }
-    public void setlink(String link){
-    this.link = link;
 
+    public String getLink() {
+        return link;
     }
-    public double getPris(){
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
+    public double getPris() {
         return pris;
     }
+
     public void setPris(double pris) {
         this.pris = pris;
-
     }
+
     public int getAntal() {
         return antal;
     }
+
     public void setAntal(int antal) {
         this.antal = antal;
     }
 
-    public boolean getKøbt(){
-    return købt;
-    }
-    public void setKøbt(boolean købt){
-    this.købt = købt;
-
+    public boolean isKoebt() {
+        return koebt;
     }
 
-
+    public void setKoebt(boolean koebt) {
+        this.koebt = koebt;
     }
-
+}
