@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${liste.titel}">Ønskeliste</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<header class="topbar"><span>Ønskelisten</span></header>
+<main>
+    <h1 th:text="${liste.titel}">Titel</h1>
+    <p>Ønskeliste delt med dig.</p>
+
+    <p class="fejl" th:if="${fejl}" th:text="${fejl}"></p>
+
+    <p th:if="${#lists.isEmpty(liste.onsker)}">Der er ingen ønsker på listen endnu.</p>
+
+    <ul class="onsker">
+        <li th:each="onske : ${liste.onsker}" th:classappend="${onske.koebt} ? 'koebt' : ''">
+            <div>
+                <strong th:text="${onske.navn}">Navn</strong>
+                <span th:if="${onske.antal > 1}" th:text="'(' + ${onske.antal} + ' stk.)'"></span>
+                <p th:if="${onske.beskrivelse != null and !#strings.isEmpty(onske.beskrivelse)}"
+                   th:text="${onske.beskrivelse}"></p>
+                <p class="pris" th:if="${onske.pris > 0}"
+                   th:text="${#numbers.formatDecimal(onske.pris, 1, 'POINT', 2, 'COMMA')} + ' kr.'"></p>
+                <p th:if="${onske.link != null and (#strings.startsWith(onske.link, 'http://') or #strings.startsWith(onske.link, 'https://'))}">
+                    <a th:href="${onske.link}" target="_blank" rel="noopener noreferrer">Se produkt</a>
+                </p>
+            </div>
+
+            <p class="status" th:if="${onske.koebt}">Allerede købt</p>
+
+            <form th:unless="${onske.koebt}"
+                  th:action="@{/del/{kode}/onsker/{onskeId}/koebt(kode=${liste.delingsKode}, onskeId=${onske.id})}"
+                  method="post"
+                  onsubmit="return confirm('Vil du markere dette ønske som købt af dig? Det kan ikke fortrydes.')">
+                <button type="submit">Jeg køber denne</button>
+            </form>
+        </li>
+    </ul>
+</main>
+</body>
+</html>
