@@ -4,23 +4,37 @@ import org.example.onskeseddel.Model.OnskeModel;
 import org.example.onskeseddel.Repository.OnskeRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-
-
 @Service
 public class OnskeService {
-    public final OnskeRepository onskeRepository;
+
+
+    private final OnskeRepository onskeRepository;
 
     public OnskeService(OnskeRepository onskeRepository) {
         this.onskeRepository = onskeRepository;
     }
 
-    public void OpretOnske(OnskeModel onske) {
-        onskeRepository.opretOnske(onske);
+    public void tilfoej(OnskeModel onske) {
+        if (onske.getNavn() == null || onske.getNavn().isBlank()) {
+            throw new IllegalArgumentException("Et ønske skal have et navn");
+        }
+        if (onske.getAntal() < 1) {
+            throw new IllegalArgumentException("Antal skal være mindst 1");
+        }
+        if (onske.getPris() < 0) {
+            throw new IllegalArgumentException("Prisen må ikke være negativ");
+        }
+        onskeRepository.gem(onske);
     }
 
-    public ArrayList<OnskeModel> hentOnske() {
-       return onskeRepository.hentOnske();
-    }
+    public void slet(int id) {
+        onskeRepository.slet(id);
 
+    }
+    public boolean markerSomKoebt(int onskeId, String delingskode) {
+        if (delingskode == null || delingskode.isBlank()) {
+            return false;
+        }
+        return onskeRepository.markerSomKoebt(onskeId, delingskode);
+    }
 }
