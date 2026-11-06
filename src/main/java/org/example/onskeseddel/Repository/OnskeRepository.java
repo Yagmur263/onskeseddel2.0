@@ -15,9 +15,7 @@ public class OnskeRepository {
     public ArrayList<OnskeModel> hentOnske(){
        return onsker;
     }
-    public ArrayList<OnskeModel> getOnske(){
-        return onsker;
-    }
+
 
 
 }

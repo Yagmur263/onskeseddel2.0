@@ -23,7 +23,4 @@ public class OnskeService {
        return onskeRepository.hentOnske();
     }
 
-    public String getOnske() {
-        return onskeRepository.getOnske();
-    }
 }

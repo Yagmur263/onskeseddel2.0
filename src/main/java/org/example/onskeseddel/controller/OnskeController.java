@@ -33,20 +33,14 @@ public class OnskeController {
    @PostMapping ("/oprettelse")
     public String gemOnske(@ModelAttribute OnskeModel onskeModel){
           onskeService.OpretOnske(onskeModel);
-        return "/oprettelse";
+       return "redirect:/hentOnske";
    }
-@GetMapping ("/hentØnske")
+@GetMapping ("/hentOnske")
     public String hentOnske(Model model){
     ArrayList<OnskeModel> hent = onskeService.hentOnske();
-    model.addAttribute("hentØnske", hent);
+    model.addAttribute("onskerListe", hent);
     return "hentOnske";
 }
-   
-//@PostMapping ("/din-onske")
-//    public String getOnske(){
-//    onskeService.getOnske()
-//}
-
 
 }
 
