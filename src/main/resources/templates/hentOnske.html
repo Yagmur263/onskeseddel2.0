@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Mine ønsker</title>
+    <link rel="stylesheet" th:href="@{/Style.css}">
+</head>
+<body>
+<h1>Min ønskeseddel</h1>
+
+<div class="boks" th:each="onske : ${onskerListe}">
+    <p th:text="${onske.navn}">Ønske</p>
+</div>
+
+<p th:if="${#lists.isEmpty(onskerListe)}">Du har ingen ønsker endnu.</p>
+
+<a href="/oprettelse">Tilføj nyt ønske</a>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${liste.titel}">Ønskeseddel</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<header class="topbar"><a th:href="@{/}">Ønskelisten</a></header>
+<main>
+    <p><a th:href="@{/}">← Alle ønskesedler</a></p>
+    <h1 th:text="${liste.titel}">Titel</h1>
+
+    <p class="fejl" th:if="${fejl}" th:text="${fejl}"></p>
+
+    <section class="rude">
+        <h2>Del din ønskeseddel</h2>
+        <p>Send dette link til familie og venner. De kan se listen uden at logge ind.</p>
+        <input type="text" readonly th:value="${delingslink}" onclick="this.select()"
+               aria-label="Delingslink">
+    </section>
+
+    <section>
+        <h2>Ønsker</h2>
+        <p th:if="${#lists.isEmpty(liste.onsker)}">Der er ingen ønsker på listen endnu.</p>
+
+        <ul class="onsker">
+            <li th:each="onske : ${liste.onsker}">
+                <div>
+                    <strong th:text="${onske.navn}">Navn</strong>
+                    <span th:if="${onske.antal > 1}" th:text="'(' + ${onske.antal} + ' stk.)'"></span>
+                    <p th:if="${onske.beskrivelse != null and !#strings.isEmpty(onske.beskrivelse)}"
+                       th:text="${onske.beskrivelse}"></p>
+                    <p th:if="${onske.pris > 0}"
+                       th:text="${#numbers.formatDecimal(onske.pris, 1, 'POINT', 2, 'COMMA')} + ' kr.'"></p>
+                    <p th:if="${onske.link != null and (#strings.startsWith(onske.link, 'http://') or #strings.startsWith(onske.link, 'https://'))}">
+                        <a th:href="${onske.link}" target="_blank" rel="noopener noreferrer">Se produkt</a>
+                    </p>
+                </div>
+                <form th:action="@{/lister/{listeId}/onsker/{onskeId}/slet(listeId=${liste.id}, onskeId=${onske.id})}"
+                      method="post" onsubmit="return confirm('Slet dette ønske?')">
+                    <button type="submit" class="slet">Slet</button>
+                </form>
+            </li>
+        </ul>
+    </section>
+
+    <section class="rude">
+        <h2>Tilføj et ønske</h2>
+        <form th:action="@{/lister/{listeId}/onsker(listeId=${liste.id})}" th:object="${nytOnske}" method="post">
+            <label for="navn">Navn</label>
+            <input type="text" id="navn" th:field="*{navn}" maxlength="100" required>
+
+            <label for="beskrivelse">Beskrivelse (valgfri)</label>
+            <textarea id="beskrivelse" th:field="*{beskrivelse}" maxlength="500" rows="2"></textarea>
+
+            <label for="link">Link til produkt (valgfri)</label>
+            <input type="url" id="link" th:field="*{link}" maxlength="500" placeholder="https://...">
+
+            <label for="pris">Pris i kr. (0 hvis ukendt)</label>
+            <input type="number" id="pris" th:field="*{pris}" step="0.01" min="0" required>
+
+            <label for="antal">Antal</label>
+            <input type="number" id="antal" th:field="*{antal}" min="1" required>
+
+            <button type="submit">Tilføj ønske</button>
+        </form>
+    </section>
+
+    <form th:action="@{/lister/{listeId}/slet(listeId=${liste.id})}" method="post"
+          onsubmit="return confirm('Slet hele ønskesedlen og alle dens ønsker?')">
+        <button type="submit" class="slet">Slet ønskesedlen</button>
+    </form>
+</main>
+</body>
+</html>

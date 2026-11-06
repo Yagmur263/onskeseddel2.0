@@ -1,12 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Opret din ønskeliste</title>
+    <title>Min ønskeseddel</title>
+    <link rel="stylesheet" th:href="@{/Style.css}">
 </head>
 <body>
-<h1>Skriv din ønsker</h1>
-<div class=" Tilføj dine ønsker"></div>
-<p> tryk her</p>
+<h1>Min ønskeseddel</h1>
+
+<form th:action="@{/oprettelse}" th:object="${OpretOnske}" method="post">
+    <div class="boks">
+        <label for="navn">Mit ønske</label>
+        <input type="text" id="navn" th:field="*{navn}" placeholder="Skriv dit ønske her">
+        <button type="submit">Gem ønske</button>
+    </div>
+</form>
 </body>
 </html>
