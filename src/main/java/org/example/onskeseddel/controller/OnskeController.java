@@ -1,6 +1,5 @@
 package org.example.onskeseddel.controller;
 import org.example.onskeseddel.Model.OnskeModel;
-import org.example.onskeseddel.Repository.OnskeRepository;
 import org.example.onskeseddel.Service.OnskeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.ArrayList;
 
 @Controller
 public class OnskeController {
@@ -34,9 +35,17 @@ public class OnskeController {
           onskeService.OpretOnske(onskeModel);
         return "/oprettelse";
    }
-
+@GetMapping ("/hentØnske")
+    public String hentOnske(Model model){
+    ArrayList<OnskeModel> hent = onskeService.hentOnske();
+    model.addAttribute("hentØnske", hent);
+    return "hentOnske";
+}
    
-
+//@PostMapping ("/din-onske")
+//    public String getOnske(){
+//    onskeService.getOnske()
+//}
 
 
 }

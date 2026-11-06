@@ -15,8 +15,15 @@ public class OnskeService {
         this.onskeRepository = onskeRepository;
     }
 
-    public void  OpretOnske(OnskeModel onske) {
-        onskeRepository.opretOnske(onske);  }
+    public void OpretOnske(OnskeModel onske) {
+        onskeRepository.opretOnske(onske);
+    }
 
+    public ArrayList<OnskeModel> hentOnske() {
+       return onskeRepository.hentOnske();
+    }
 
+    public String getOnske() {
+        return onskeRepository.getOnske();
+    }
 }

@@ -3,6 +3,7 @@ package org.example.onskeseddel.Repository;
 import org.example.onskeseddel.Model.OnskeModel;
 import org.springframework.stereotype.Repository;
 
+
 import java.util.ArrayList;
 @Repository
 public class OnskeRepository {
@@ -10,6 +11,12 @@ public class OnskeRepository {
 
     public void opretOnske (OnskeModel opret){
         onsker.add(opret);
+    }
+    public ArrayList<OnskeModel> hentOnske(){
+       return onsker;
+    }
+    public ArrayList<OnskeModel> getOnske(){
+        return onsker;
     }
 
 
