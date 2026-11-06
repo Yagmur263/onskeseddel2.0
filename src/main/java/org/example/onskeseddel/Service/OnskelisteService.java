@@ -4,6 +4,8 @@ import org.example.onskeseddel.Model.Onskeliste;
 import org.example.onskeseddel.Repository.OnskeRepository;
 import org.example.onskeseddel.Repository.OnskelisteRepository;
 import org.springframework.stereotype.Service;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import java.util.List;
 
@@ -51,5 +53,19 @@ public class OnskelisteService {
         }
         liste.setOnsker(onskeRepository.findAlleForListe(liste.getId()));
         return liste;
+
+    }
+    private static final Pattern DELINGSKODE =
+            Pattern.compile("[0-9a-fA-F]{8}(-[0-9a-fA-F]{4}){3}-[0-9a-fA-F]{12}");
+
+    public Onskeliste findViaLinkEllerKode(String tekst) {
+        if (tekst == null) {
+            return null;
+        }
+        Matcher matcher = DELINGSKODE.matcher(tekst);
+        if (!matcher.find()) {
+            return null;
+        }
+        return onskelisteRepository.findByDelingskode(matcher.group().toLowerCase());
     }
 }

@@ -4,12 +4,14 @@ import org.example.onskeseddel.Model.OnskeModel;
 import org.example.onskeseddel.Model.Onskeliste;
 import org.example.onskeseddel.Service.OnskeService;
 import org.example.onskeseddel.Service.OnskelisteService;
+import org.example.onskeseddel.Service.ProfilService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -18,17 +20,36 @@ public class OnskeController {
 
     private final OnskelisteService onskelisteService;
     private final OnskeService onskeService;
+    private final ProfilService profilService;
 
-    public OnskeController(OnskelisteService onskelisteService, OnskeService onskeService) {
+    public OnskeController(OnskelisteService onskelisteService,
+                           OnskeService onskeService,
+                           ProfilService profilService) {
         this.onskelisteService = onskelisteService;
         this.onskeService = onskeService;
+        this.profilService = profilService;
     }
 
     @GetMapping("/")
     public String forside(Model model) {
+        String navn = profilService.hentNavn();
+        model.addAttribute("navn", navn);
+        model.addAttribute("initialer", profilService.initialer(navn));
+        model.addAttribute("antalLister", profilService.antalLister());
+        model.addAttribute("antalOnsker", profilService.antalOnsker());
         model.addAttribute("lister", onskelisteService.hentAlle());
         model.addAttribute("nyListe", new Onskeliste());
         return "index";
+    }
+
+    @PostMapping("/profil")
+    public String gemProfil(@RequestParam String navn, RedirectAttributes ra) {
+        try {
+            profilService.gemNavn(navn);
+        } catch (IllegalArgumentException e) {
+            ra.addFlashAttribute("fejl", e.getMessage());
+        }
+        return "redirect:/";
     }
 
     @PostMapping("/lister")
@@ -49,7 +70,7 @@ public class OnskeController {
             return "redirect:/";
         }
         String delingslink = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/del/" + liste.getDelingskode())
+                .path("/del/" + liste.getDelingsKode())
                 .toUriString();
 
         model.addAttribute("liste", liste);
@@ -92,5 +113,25 @@ public class OnskeController {
         }
         model.addAttribute("liste", liste);
         return "del";
+
+    }
+    @PostMapping("/venner/find")
+    public String findVen(@RequestParam String link, RedirectAttributes ra) {
+        Onskeliste liste = onskelisteService.findViaLinkEllerKode(link);
+        if (liste == null) {
+            ra.addFlashAttribute("fejl", "Vi kunne ikke finde en ønskeliste med det link");
+            return "redirect:/";
+        }
+        return "redirect:/del/" + liste.getDelingsKode();
+
+    }
+    @PostMapping("/del/{delingskode}/onsker/{onskeId}/koebt")
+    public String markerKoebt(@PathVariable String delingskode,
+                              @PathVariable int onskeId,
+                              RedirectAttributes ra) {
+        if (!onskeService.markerSomKoebt(onskeId, delingskode)) {
+            ra.addFlashAttribute("fejl", "Ønsket kunne ikke markeres. Måske er det allerede købt.");
+        }
+        return "redirect:/del/" + delingskode;
     }
 }

@@ -49,5 +49,10 @@ public class OnskelisteRepository {
                 "SELECT id, titel, delingskode FROM onskeliste WHERE delingskode = ?",
                 rowMapper, delingskode);
         return resultat.isEmpty() ? null : resultat.get(0);
+
+    }
+    public int antalLister() {
+        Integer antal = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM onskeliste", Integer.class);
+        return antal == null ? 0 : antal;
     }
 }

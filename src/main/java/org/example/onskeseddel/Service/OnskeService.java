@@ -28,5 +28,12 @@ public class OnskeService {
 
     public void slet(int id) {
         onskeRepository.slet(id);
+
+    }
+    public boolean markerSomKoebt(int onskeId, String delingskode) {
+        if (delingskode == null || delingskode.isBlank()) {
+            return false;
+        }
+        return onskeRepository.markerSomKoebt(onskeId, delingskode);
     }
 }

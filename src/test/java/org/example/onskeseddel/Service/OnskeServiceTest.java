@@ -7,9 +7,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(MockitoExtension.class)
 class OnskeServiceTest {
@@ -68,5 +69,19 @@ class OnskeServiceTest {
         service.slet(5);
 
         verify(onskeRepository).slet(5);
+
+    }
+    @Test
+    void markerSomKoebtSenderIdOgKodeVidereTilRepository() {
+        when(onskeRepository.markerSomKoebt(5, "abc")).thenReturn(true);
+
+        assertTrue(service.markerSomKoebt(5, "abc"));
+    }
+
+    @Test
+    void markerSomKoebtUdenDelingskodeGiverFalseOgRoererIkkeDatabasen() {
+        assertFalse(service.markerSomKoebt(5, "  "));
+        assertFalse(service.markerSomKoebt(5, null));
+        verify(onskeRepository, never()).markerSomKoebt(anyInt(), any());
     }
 }

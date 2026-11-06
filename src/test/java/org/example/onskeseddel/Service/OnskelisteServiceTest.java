@@ -96,5 +96,24 @@ class OnskelisteServiceTest {
         when(onskelisteRepository.findAlle()).thenReturn(List.of(new Onskeliste(), new Onskeliste()));
 
         assertEquals(2, service.hentAlle().size());
+
+    }
+    @Test
+    void findViaLinkEllerKodeFinderListeUdFraHeltLink() {
+        Onskeliste liste = new Onskeliste();
+        when(onskelisteRepository.findByDelingskode("c4f83701-2dfa-4ee3-b82e-f25306cc3706"))
+                .thenReturn(liste);
+
+        Onskeliste resultat = service.findViaLinkEllerKode(
+                "http://localhost:8080/del/c4f83701-2dfa-4ee3-b82e-f25306cc3706");
+
+        assertSame(liste, resultat);
+    }
+
+    @Test
+    void findViaLinkEllerKodeReturnererNullHvisTeksten_IkkeIndeholderEnKode() {
+        assertNull(service.findViaLinkEllerKode("hej med dig"));
+        assertNull(service.findViaLinkEllerKode(null));
+        verify(onskelisteRepository, never()).findByDelingskode(any());
     }
 }

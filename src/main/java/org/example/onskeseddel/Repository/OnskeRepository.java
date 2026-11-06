@@ -43,5 +43,19 @@ public class OnskeRepository {
 
     public void slet(int id) {
         jdbcTemplate.update("DELETE FROM onske WHERE id = ?", id);
+
+    }
+    public int antalOnsker() {
+        Integer antal = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM onske", Integer.class);
+        return antal == null ? 0 : antal;
+
+    }
+    public boolean markerSomKoebt(int onskeId, String delingskode) {
+        int opdateret = jdbcTemplate.update(
+                "UPDATE onske o JOIN onskeliste l ON o.onskeliste_id = l.id " +
+                        "SET o.koebt = TRUE " +
+                        "WHERE o.id = ? AND l.delingskode = ? AND o.koebt = FALSE",
+                onskeId, delingskode);
+        return opdateret == 1;
     }
 }
