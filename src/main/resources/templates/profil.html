@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Profil</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+
+<h1>Min profil</h1>
+
+<p th:if="${fejl}" th:text="${fejl}" style="color: red;"></p>
+
+<form th:action="@{/profil}" method="post">
+    <label for="navn">Navn</label>
+    <input type="text" id="navn" name="navn" th:value="${navn}">
+    <button type="submit">Gem</button>
+</form>
+
+<a th:href="@{/}">Tilbage til forsiden</a>
+
+</body>
+</html>
