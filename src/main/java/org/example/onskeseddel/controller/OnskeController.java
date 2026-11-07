@@ -7,17 +7,13 @@ import org.example.onskeseddel.Service.OnskelisteService;
 import org.example.onskeseddel.Service.ProfilService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.util.ArrayList;
 
 @Controller
+@RequestMapping("/Onskeseddel")
 public class OnskeController {
 
     private final OnskelisteService onskelisteService;
@@ -44,6 +40,12 @@ public class OnskeController {
         return "index";
     }
 
+    @GetMapping ("/profil")
+    public String getProfil(Model model){
+        model.addAttribute("navn", profilService.hentNavn());
+        return "profil";
+    }
+
     @PostMapping("/profil")
     public String gemProfil(@RequestParam String navn, RedirectAttributes ra) {
         try {
@@ -51,7 +53,7 @@ public class OnskeController {
         } catch (IllegalArgumentException e) {
             ra.addFlashAttribute("fejl", e.getMessage());
         }
-        return "redirect:/";
+        return "redirect:/profil";
     }
 
     @PostMapping("/lister")
