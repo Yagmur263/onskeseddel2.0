@@ -315,5 +315,9 @@ ul.onsker li.koebt strong { text-decoration: line-through;
     button{
         transition: none;
     }
+}
 
+.boks {
+    border: 2px solid black;
+    padding: 20px;
 }
