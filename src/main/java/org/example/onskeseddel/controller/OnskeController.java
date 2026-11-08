@@ -13,7 +13,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 
 @Controller
-@RequestMapping("/Onskeseddel")
 public class OnskeController {
 
     private final OnskelisteService onskelisteService;
