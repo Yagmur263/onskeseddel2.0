@@ -39,7 +39,7 @@ public class OnskeController {
         model.addAttribute("nyListe", new Onskeliste());
         return "index";
     }
-
+    //ss
     @GetMapping ("/profil")
     public String getProfil(Model model){
         model.addAttribute("navn", profilService.hentNavn());
