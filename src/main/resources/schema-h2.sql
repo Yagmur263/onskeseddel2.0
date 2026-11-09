@@ -20,5 +20,6 @@ FOREIGN KEY (onskeliste_id) REFERENCES onskeliste(id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS person (
- navn VARCHAR(100) NOT NULL
+id   INT PRIMARY KEY,
+navn VARCHAR(100) NOT NULL
     );
