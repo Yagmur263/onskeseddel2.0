@@ -49,10 +49,11 @@ public class OnskeController {
     public String gemProfil(@RequestParam String navn, RedirectAttributes ra) {
         try {
             profilService.gemNavn(navn);
+            return "redirect:/";
         } catch (IllegalArgumentException e) {
             ra.addFlashAttribute("fejl", e.getMessage());
+            return "redirect:/profil";
         }
-        return "redirect:/profil";
     }
 
     @PostMapping("/lister")
