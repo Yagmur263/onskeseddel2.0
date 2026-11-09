@@ -1,5 +1,323 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
+
+:root{
+    --bg: #cfe6f7;
+    --bg-let: #eaf4fc;
+    --ink: #14181c;
+    --link: #1f6fb2;
+    --muted: #4a5560;
+    --radius: 18px;
+
+}
+body{
+    margin: 0;
+    font-family: 'Nunito', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.55;
+
+}
+.topbar{
+    background: #fff; border-bottom: 2px solid var(--ink);
+
+}
+.topbar a, .topbar span{
+    display: block;
+    max-width: 56rem;
+    margin: 0 auto;
+    padding: 0.9rem 1rem;
+    font-weight: 800;
+    font-size: 1.2rem;
+    color: var(--ink);
+    text-decoration: none;
+
+}
+main {
+    max-width: 56rem; margin: 0 auto; padding: 2rem 1rem 4rem;
+
+}
+main > p{
+    color: var(--muted);
+
+}
+h1, h2{
+    font-weight: 800; letter-spacing: -0.01em; line-height: 1.15;
+
+}
+h1{
+    font-size: clamp(1.8rem, 6vw, 2.6rem); margin: 0 0 1rem;
+
+}
+h2{
+    font-size: 1.4rem; margin: 0 0 0.5rem;
+
+}
+a{
+    color: var(--link); text-underline-offset: 3px;
+
+}
+.profil{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    margin-bottom: 2.25rem;
+    background: #fff;
+    border: 2px solid var(--ink);
+    border-radius: var(--radius);
+
+}
+.avatar{
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 5.5rem;
+    height: 5.5rem;
+    border-radius: 50%;
+    background: var(--ink);
+    color: #fff;
+    font-size: 1.9rem;
+    font-weight: 800;
+
+}
+.profil h1{
+    margin: 0 0 0.6rem;
+
+}
+.tal{
+    display: flex; gap: 2rem;
+
+}
+.tal div{
+    display: flex; flex-direction: column; align-items: center;
+
+}
+.tal strong{
+    font-size: 1.7rem; line-height: 1.1;
+
+}
+.tal span{
+    color: var(--muted); font-size: 0.95rem;
+
+}
+.rude{
+    background: #fff;
+    border: 2px solid var(--ink);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    margin: 1.5rem 0;
+
+}
+label{
+    display: block; margin-top: 1rem; font-weight: 700; font-size: 0.95rem;
+
+}
+input, textarea{
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 0.25rem;
+    padding: 0.65rem 0.8rem;
+    font: inherit;
+    color: var(--ink);
+    background: #fff;
+    border: 2px solid var(--ink);
+    border-radius: 12px;
+
+}
+input[readonly]{
+    background: var(--bg-let); cursor: pointer;
+
+}
+input:focus-visible, textarea:focus-visible, button:focus-visible, a:focus-visible {
+    outline: 3px solid var(--link);
+    outline-offset: 2px;
+}
+
+button{
+    margin-top: 1rem;
+    padding: 0.65rem 1.4rem;
+    font: inherit;
+    font-weight: 700;
+    color: #fff;
+    background: var(--ink);
+    border: 2px solid var(--ink);
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background 0.1s;
+
+}
+button:hover{
+    background: #2d353d;
+
+}
+button.slet{
+    margin-top: 0; color: var(--ink); background: #fff;
+
+}
+button.slet:hover{
+    background: var(--bg-let);
+
+}
+main > form:not(.rude){
+    margin-top: 2.5rem;
+
+}
+.fejl{
+    padding: 0.75rem 1rem;
+    color: #5c1008;
+    font-weight: 600;
+    background: #ffe3e0;
+    border: 2px solid #b42318;
+    border-radius: 12px;
+
+}
+ul.lister, ul.onsker{
+    list-style: none; padding: 0; margin: 1rem 0;
+
+}
+ul.lister{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    gap: 1rem;
+
+}
+ul.lister li{
+    position: relative;
+    display: flex;
+    min-height: 7.5rem;
+    background: #fff;
+    border: 2px solid var(--ink);
+    border-radius: var(--radius);
+
+}
+ul.lister li:not(.ny):hover { background: var(--bg-let); }
+ul.lister li a{
+    display: flex;
+    align-items: flex-end;
+    width: 100%;
+    padding: 1.1rem 1.25rem;
+    font-weight: 800;
+    font-size: 1.3rem;
+    color: var(--ink);
+    text-decoration: none;
+    overflow-wrap: anywhere;
+
+}
+ul.lister li a::after{
+    content: ""; position: absolute; inset: 0; border-radius: inherit;
+
+}
+ul.lister li a:focus-visible{
+    outline-offset: -6px;
+
+}
+ul.lister li.ny{
+    display: block;
+    padding: 0.25rem 1.25rem 1.1rem;
+    background: transparent;
+    border-style: dashed;
+
+}
+ul.onsker li{
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin: 0.9rem 0;
+    padding: 1rem 1.25rem 1rem 3.4rem;
+    background: #fff;
+    border: 2px solid var(--ink);
+    border-radius: 8px var(--radius) var(--radius) 8px;
+
+}
+ul.onsker li::before{
+    content: "";
+    position: absolute;
+    left: 1rem;
+    top: 1.2rem;
+    width: 1rem;
+    height: 1rem;
+    background: var(--bg);
+    border: 2px solid var(--ink);
+    border-radius: 50%;
+}
+ul.onsker li > div{
+    flex: 1 1 14rem; min-width: 0; overflow-wrap: anywhere;
+
+}
+ul.onsker strong{
+    font-size: 1.15rem;
+
+}
+ul.onsker p{
+    margin: 0.25rem 0;
+
+}
+.pris { font-weight: 800; color: var(--link);
+
+}
+.tal{
+    align-items: flex-start;
+
+}
+.venner-knap{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    color: var(--ink);
+    font-size: 0.95rem;
+    text-decoration: none;
+
+}
+.venner-knap .ikon{
+    display: grid;
+    place-items: center;
+    width: 2.6rem;
+    height: 2.6rem;
+    background: var(--bg-let);
+    border: 2px solid var(--ink);
+    border-radius: 50%;
+
+}
+.venner-knap:hover .ikon{
+    background: var(--bg);
+
+}
+.venner-boks {
+    display: none;
+
+}
+.venner-boks:target{
+    display: block;
+
+}
+.venner-boks form a{
+    margin-left: 1rem;
+}
+
+/* Købte ønsker */
+ul.onsker li.koebt{
+    background: var(--bg-let);
+
+}
+ul.onsker li.koebt strong { text-decoration: line-through;
+
+}
+.status{
+    align-self: center; margin: 0; font-weight: 800;
+
+}
+@media (prefers-reduced-motion: reduce){
+    button{
+        transition: none;
+    }
+}
+
 .boks {
     border: 2px solid black;
     padding: 20px;
-
 }
